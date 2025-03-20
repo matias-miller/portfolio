@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Matt's cyberpunk-inspired project portfolio showcasing innovative web constructs.">
+    <meta name="theme-color" content="#0f0c29">
+    <title>Matt's Devfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Enhanced Cyberpunk Background */
+        body {
+            background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* Neon Glow with Dynamic Color */
+        .neon-glow {
+            box-shadow: 0 0 5px #00ffcc, 0 0 15px #00ffcc, 0 0 25px #00ffcc, inset 0 0 5px #00ffcc;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .neon-glow:hover {
+            box-shadow: 0 0 15px #00ffcc, 0 0 30px #00ffcc, 0 0 45px #00ffcc;
+        }
+
+        /* Flicker Animation with Subtle Glitch */
+        .flicker {
+            animation: flicker 1.5s infinite alternate, glitch 4s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+            20%, 24%, 55% { opacity: 0.7; }
+        }
+
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px, 0) skew(2deg); }
+            4%, 60% { transform: translate(-2px, 0) skew(-2deg); }
+            62% { transform: translate(0, 0) skew(0deg); }
+        }
+
+        /* Advanced Card Hover Effects */
+        .card-hover {
+            transition: all 0.4s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-hover:hover {
+            background: rgba(0, 255, 204, 0.15);
+            transform: translateY(-8px) scale(1.03);
+        }
+
+        .card-hover::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, rgba(0, 255, 204, 0), rgba(0, 255, 204, 0.3));
+            opacity: 0;
+            transform: rotate(30deg);
+            transition: opacity 0.5s ease;
+        }
+
+        .card-hover:hover::after {
+            opacity: 1;
+            animation: shine 1s ease forwards;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+
+        /* Fade Animation */
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-white">
+    <!-- Particle Background -->
+    <canvas id="particleCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <div class="container mx-auto px-4 py-8 max-w-5xl relative z-10">
+        <!-- Header with Blog Link -->
+        <header class="text-center py-12">
+            <img src="profile.webp" alt="Profile of Matt Miller" 
+                 loading="lazy" decoding="async" 
+                 class="w-32 h-32 rounded-full mx-auto border-4 border-cyan-400 neon-glow hover:scale-110 transition-transform duration-500">
+            <h1 class="text-4xl font-bold mt-4 flicker text-cyan-300">Matt Miller</h1>
+            <p class="text-xl text-pink-400 mt-2 animate-pulse">Creative Code Runner</p>
+            <nav class="mt-4 flex justify-center gap-6 text-gray-300" aria-label="Social Links">
+                <a href="https://github.com/matias-miller" target="_blank" rel="noopener noreferrer" 
+                   class="hover:text-cyan-400 transition-colors neon-glow p-2 rounded-full" aria-label="GitHub Profile">GitHub</a>
+                <a href="https://www.linkedin.com/in/matias-miller/" target="_blank" rel="noopener noreferrer" 
+                   class="hover:text-cyan-400 transition-colors neon-glow p-2 rounded-full" aria-label="LinkedIn Profile">LinkedIn</a>
+                <a href="mailto:mattmjobs1@gmail.com" 
+                   class="hover:text-cyan-400 transition-colors neon-glow p-2 rounded-full" aria-label="Email Contact">Email</a>
+            </nav>
+        </header>
+
+        <!-- Projects Section -->
+        <section class="mb-12" id="projects">
+            <h2 class="text-3xl font-semibold text-center mb-8 text-pink-400 flicker">Featured Constructs</h2>
+            <div class="grid md:grid-cols-2 gap-6" id="projectGrid">
+                <div class="bg-gray-900 rounded-lg p-6 card-hover neon-glow" data-skills="react,nodejs,mongodb">
+                    <img src="https://via.placeholder.com/300x200" alt="Project One Screenshot" 
+                         loading="lazy" class="w-full h-48 object-cover rounded-md mb-4 border border-cyan-500">
+                    <h3 class="text-xl font-medium text-cyan-300">Project One</h3>
+                    <p class="text-gray-400 mt-2">A responsive web-matrix built with React and Tailwind CSS.</p>
+                    <div class="mt-4 flex gap-4">
+                        <button aria-expanded="false" aria-controls="details1" onclick="toggleDetails('details1', this)" 
+                                class="bg-cyan-600 hover:bg-cyan-700 px-4 py-2 rounded-md transition-colors neon-glow">
+                            Decrypt
+                        </button>
+                        <a href="#" target="_blank" rel="noopener noreferrer" 
+                           class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md transition-colors">Access Live</a>
+                    </div>
+                    <div id="details1" class="hidden mt-4 text-gray-300">
+                        <p>Core Tech: React, Node.js, MongoDB</p>
+                        <p>Systems: User auth, real-time sync</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 rounded-lg p-6 card-hover neon-glow" data-skills="python,flask,sqlite">
+                    <img src="https://via.placeholder.com/300x200" alt="Project Two Screenshot" 
+                         loading="lazy" class="w-full h-48 object-cover rounded-md mb-4 border border-cyan-500">
+                    <h3 class="text-xl font-medium text-cyan-300">Project Two</h3>
+                    <p class="text-gray-400 mt-2">Mobile grid with Python core and REST API.</p>
+                    <div class="mt-4 flex gap-4">
+                        <button aria-expanded="false" aria-controls="details2" onclick="toggleDetails('details2', this)" 
+                                class="bg-cyan-600 hover:bg-cyan-700 px-4 py-2 rounded-md transition-colors neon-glow">
+                            Decrypt
+                        </button>
+                        <a href="#" target="_blank" rel="noopener noreferrer" 
+                           class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md transition-colors">Access Live</a>
+                    </div>
+                    <div id="details2" class="hidden mt-4 text-gray-300">
+                        <p>Core Tech: Python, Flask, SQLite</p>
+                        <p>Systems: Push signals, data sync</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Filter -->
+        <section class="mb-12" id="skills">
+            <h2 class="text-3xl font-semibold text-center mb-6 text-pink-400 flicker">Code Arsenal</h2>
+            <div class="flex flex-wrap justify-center gap-4 mb-6" role="tablist" aria-label="Skill Filters">
+                <button role="tab" aria-selected="false" onclick="filterProjects('react')" 
+                        class="skill-btn bg-gray-800 hover:bg-cyan-600 px-4 py-2 rounded-full transition-colors neon-glow">React</button>
+                <button role="tab" aria-selected="false" onclick="filterProjects('python')" 
+                        class="skill-btn bg-gray-800 hover:bg-cyan-600 px-4 py-2 rounded-full transition-colors neon-glow">Python</button>
+                <button role="tab" aria-selected="true" onclick="filterProjects('all')" 
+                        class="skill-btn bg-gray-800 hover:bg-cyan-600 px-4 py-2 rounded-full transition-colors neon-glow">All</button>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="text-center py-12 bg-gray-900 rounded-lg neon-glow" id="contact">
+            <h2 class="text-3xl font-semibold mb-4 text-pink-400 flicker">Open Comm Link</h2>
+            <p class="text-gray-400 mb-6">Ready to sync? Transmit your signal!</p>
+            <a href="mailto:john.doe@email.com" 
+               class="bg-cyan-600 hover:bg-cyan-700 px-6 py-3 rounded-md text-lg transition-colors neon-glow">
+                Initiate Contact
+            </a>
+        </section>
+    </div>
+
+    <script>
+        // Enhanced Toggle Details with Accessibility
+        function toggleDetails(id, button) {
+            const element = document.getElementById(id);
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            element.classList.toggle('hidden');
+            button.setAttribute('aria-expanded', !isExpanded);
+            if (!element.classList.contains('hidden')) {
+                element.classList.add('fade-in');
+                setTimeout(() => element.classList.remove('fade-in'), 500);
+            }
+        }
+
+        // Advanced Project Filtering with Debouncing
+        const filterProjects = debounce((skill) => {
+            const projects = document.querySelectorAll('#projectGrid .card-hover');
+            projects.forEach(project => {
+                const skills = project.getAttribute('data-skills').split(',');
+                const shouldShow = skill === 'all' || skills.includes(skill);
+                project.style.display = shouldShow ? 'block' : 'none';
+                if (shouldShow) {
+                    project.classList.add('fade-in');
+                    setTimeout(() => project.classList.remove('fade-in'), 500);
+                }
+            });
+            updateTabState(skill);
+        }, 200);
+
+        // Update ARIA states for skill buttons
+        function updateTabState(selectedSkill) {
+            document.querySelectorAll('.skill-btn').forEach(btn => {
+                const skill = btn.textContent.toLowerCase();
+                btn.setAttribute('aria-selected', skill === selectedSkill);
+            });
+        }
+
+        // Debounce Utility
+        function debounce(func, wait) {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        // Particle Background
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        for (let i = 0; i < 50; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                speedX: Math.random() * 0.5 - 0.25,
+                speedY: Math.random() * 0.5 - 0.25
+            });
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#00ffcc';
+                ctx.fill();
+                p.x += p.speedX;
+                p.y += p.speedY;
+                if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // Resize Canvas on Window Resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Lazy Load Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card-hover').forEach(card => observer.observe(card));
+    </script>
+</body>
+</html>
